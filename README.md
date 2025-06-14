@@ -14,6 +14,7 @@ This repository contains a collection of simple yet insightful **Data Science pr
 
 ## 📈 Tools Used
 - Python (Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn)
+- VScode
 - Jupyter Notebooks
 - Git & GitHub
 - Machine Learning Algorithms
