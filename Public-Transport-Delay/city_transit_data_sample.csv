@@ -1,0 +1,76 @@
+Route,Station,Scheduled_Arrival,Actual_Arrival,Delay_Minutes,Weather_Condition,Delay_Reason
+Route A,North,2025-01-02 02:04,2025-01-02 02:11,7,Rainy,Weather
+Route B,South,2025-01-01 12:33,2025-01-01 12:43,10,Cloudy,Mechanical Issue
+Route D,North,2025-01-01 15:23,2025-01-01 15:29,6,Clear,Accident
+Route A,South,2025-01-01 23:02,2025-01-01 23:13,11,Clear,Accident
+Route C,South,2025-01-02 02:32,2025-01-02 02:41,9,Foggy,Weather
+Route D,North,2025-01-02 03:18,2025-01-02 03:24,6,Clear,Mechanical Issue
+Route B,North,2025-01-01 10:13,2025-01-01 10:18,5,Snow,Weather
+Route A,North,2025-01-01 07:00,2025-01-01 07:03,3,Rainy,None
+Route A,West,2025-01-02 05:18,2025-01-02 05:28,10,Snow,Traffic
+Route A,Central,2025-01-02 03:40,2025-01-02 03:48,8,Rainy,Mechanical Issue
+Route B,East,2025-01-01 21:57,2025-01-01 22:12,15,Cloudy,Weather
+Route B,South,2025-01-01 09:50,2025-01-01 10:02,12,Rainy,Accident
+Route D,West,2025-01-02 01:55,2025-01-02 01:58,3,Rainy,None
+Route D,East,2025-01-01 14:22,2025-01-01 14:36,14,Clear,None
+Route D,East,2025-01-02 03:58,2025-01-02 04:00,2,Snow,Weather
+Route C,South,2025-01-01 20:24,2025-01-01 20:35,11,Cloudy,Weather
+Route B,West,2025-01-01 23:40,2025-01-01 23:45,5,Clear,None
+Route B,West,2025-01-01 15:29,2025-01-01 15:41,12,Snow,None
+Route C,Central,2025-01-01 21:56,2025-01-01 21:58,2,Clear,Traffic
+Route C,South,2025-01-01 18:37,2025-01-01 18:49,12,Rainy,Accident
+Route A,West,2025-01-01 12:29,2025-01-01 12:43,14,Rainy,Weather
+Route C,Central,2025-01-01 20:57,2025-01-01 21:01,4,Rainy,None
+Route D,North,2025-01-02 02:17,2025-01-02 02:24,7,Cloudy,Weather
+Route D,South,2025-01-01 20:46,2025-01-01 20:47,1,Rainy,None
+Route A,North,2025-01-02 05:13,2025-01-02 05:23,10,Foggy,Accident
+Route B,South,2025-01-01 15:30,2025-01-01 15:32,2,Rainy,Mechanical Issue
+Route B,Central,2025-01-01 14:45,2025-01-01 14:51,6,Foggy,None
+Route A,South,2025-01-02 00:50,2025-01-02 00:56,6,Snow,Weather
+Route C,North,2025-01-01 09:16,2025-01-01 09:29,13,Clear,Accident
+Route D,North,2025-01-01 07:39,2025-01-01 07:42,3,Clear,Weather
+Route A,East,2025-01-01 23:28,2025-01-01 23:41,13,Cloudy,Mechanical Issue
+Route B,East,2025-01-01 12:35,2025-01-01 12:43,8,Foggy,Mechanical Issue
+Route C,Central,2025-01-01 21:10,2025-01-01 21:10,0,Rainy,None
+Route B,East,2025-01-01 19:25,2025-01-01 19:27,2,Rainy,Weather
+Route A,Central,2025-01-01 21:11,2025-01-01 21:17,6,Rainy,Traffic
+Route B,North,2025-01-02 01:33,2025-01-02 01:41,8,Snow,Weather
+Route D,North,2025-01-01 23:31,2025-01-01 23:34,3,Clear,Accident
+Route C,East,2025-01-02 01:01,2025-01-02 01:08,7,Snow,Traffic
+Route C,South,2025-01-01 06:12,2025-01-01 06:24,12,Cloudy,Weather
+Route D,North,2025-01-01 16:39,2025-01-01 16:54,15,Clear,Accident
+Route C,North,2025-01-02 00:20,2025-01-02 00:27,7,Snow,Mechanical Issue
+Route A,West,2025-01-01 17:00,2025-01-01 17:04,4,Cloudy,Accident
+Route D,Central,2025-01-01 13:53,2025-01-01 14:08,15,Rainy,Accident
+Route C,North,2025-01-01 08:35,2025-01-01 08:38,3,Cloudy,Weather
+Route D,West,2025-01-02 05:21,2025-01-02 05:27,6,Cloudy,Accident
+Route B,West,2025-01-02 00:43,2025-01-02 00:58,15,Cloudy,Mechanical Issue
+Route C,West,2025-01-01 21:33,2025-01-01 21:45,12,Rainy,Mechanical Issue
+Route C,Central,2025-01-01 15:11,2025-01-01 15:18,7,Rainy,Weather
+Route D,North,2025-01-02 03:31,2025-01-02 03:31,0,Foggy,None
+Route A,Central,2025-01-01 18:21,2025-01-01 18:26,5,Rainy,Weather
+Route C,Central,2025-01-02 00:32,2025-01-02 00:42,10,Snow,Accident
+Route A,Central,2025-01-02 05:17,2025-01-02 05:24,7,Foggy,Weather
+Route C,West,2025-01-01 21:41,2025-01-01 21:47,6,Cloudy,Accident
+Route B,East,2025-01-01 08:46,2025-01-01 08:52,6,Snow,Accident
+Route C,Central,2025-01-01 20:41,2025-01-01 20:53,12,Snow,Accident
+Route D,Central,2025-01-01 06:42,2025-01-01 06:44,2,Foggy,Traffic
+Route C,South,2025-01-01 12:37,2025-01-01 12:45,8,Clear,Traffic
+Route B,Central,2025-01-02 00:15,2025-01-02 00:17,2,Clear,Traffic
+Route D,North,2025-01-01 08:25,2025-01-01 08:35,10,Snow,Mechanical Issue
+Route C,West,2025-01-01 23:22,2025-01-01 23:22,0,Foggy,None
+Route A,East,2025-01-01 11:38,2025-01-01 11:47,9,Clear,None
+Route A,West,2025-01-01 07:03,2025-01-01 07:04,1,Foggy,Mechanical Issue
+Route C,North,2025-01-01 12:23,2025-01-01 12:31,8,Foggy,Accident
+Route D,East,2025-01-02 05:29,2025-01-02 05:37,8,Rainy,Accident
+Route C,Central,2025-01-02 04:03,2025-01-02 04:04,1,Cloudy,Accident
+Route C,East,2025-01-01 08:16,2025-01-01 08:22,6,Snow,Accident
+Route C,South,2025-01-02 00:01,2025-01-02 00:06,5,Snow,Traffic
+Route A,West,2025-01-02 04:11,2025-01-02 04:22,11,Cloudy,Mechanical Issue
+Route C,East,2025-01-01 20:14,2025-01-01 20:21,7,Cloudy,Traffic
+Route C,North,2025-01-01 07:44,2025-01-01 07:53,9,Clear,Accident
+Route B,Central,2025-01-02 00:37,2025-01-02 00:50,13,Foggy,Mechanical Issue
+Route B,North,2025-01-02 01:54,2025-01-02 01:55,1,Foggy,Accident
+Route C,South,2025-01-01 09:01,2025-01-01 09:09,8,Rainy,Traffic
+Route B,West,2025-01-02 01:08,2025-01-02 01:21,13,Foggy,None
+Route B,West,2025-01-02 04:17,2025-01-02 04:24,7,Foggy,Traffic
