@@ -9,8 +9,7 @@ warnings.filterwarnings('ignore')
 
 # Load the dataset
 def load_data():
-    # Note: Ensure the CSV file name is correct and in the same directory.
-    # The original filename "Netflix_dataset's.csv" is unusual. Renaming to "Netflix_datasets.csv" is recommended.
+   
     try:
         data = pd.read_csv("Netflix_dataset's.csv")
     except FileNotFoundError:
