@@ -1,0 +1,117 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.metrics import accuracy_score, classification_report
+import warnings
+warnings.filterwarnings('ignore')
+
+# Load the dataset
+def load_data():
+   
+    try:
+        data = pd.read_csv("Netflix_dataset's.csv")
+    except FileNotFoundError:
+        print("Error: Dataset file not found. Make sure 'Netflix_dataset's.csv' is in the correct path.")
+        return None
+    return data
+
+# Preprocess the data
+def preprocess_data(df):
+    # Remove rows with missing critical values
+    df = df.dropna(subset=['title', 'genres', 'releaseYear', 'imdbAverageRating', 'imdbNumVotes'])
+    
+    # Define popularity based on IMDb rating (above median = popular)
+    median_rating = df['imdbAverageRating'].median()
+    df['is_popular'] = (df['imdbAverageRating'] > median_rating).astype(int)
+    
+    # Process genres: Split and encode
+    df['genres'] = df['genres'].apply(lambda x: x.split(', ') if isinstance(x, str) else [])
+    mlb = MultiLabelBinarizer()
+    genres_encoded = pd.DataFrame(mlb.fit_transform(df['genres']), columns=mlb.classes_, index=df.index)
+    
+    # --- MODIFICATION FOR BASELINE PR ---
+    # The original code included 'releaseYear' and 'imdbNumVotes'.
+    # 'imdbNumVotes' is REMOVED to fix data leakage, as this metric isn't available for future shows.
+    # 'releaseYear' is REMOVED to create a simple, robust baseline model that doesn't rely on time-series data.
+    # The only remaining features are the genres.
+    features = genres_encoded
+    # --- END MODIFICATION ---
+    
+    # Handle any remaining NaN values (though less likely with this feature set)
+    features = features.fillna(0)
+    
+    return features, df['is_popular'], mlb.classes_
+
+# Train the model
+def train_model(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Initialize and train Random Forest Classifier
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+    
+    # Evaluate the model
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"Model Accuracy: {accuracy:.2f}")
+    print("\nClassification Report:")
+    # Using zero_division=0 to prevent errors if a class has no predictions
+    print(classification_report(y_test, y_pred, target_names=['Not Popular', 'Popular'], zero_division=0))
+    
+    return model
+
+# Predict popularity for a new show
+def predict_popularity(model, genres_list, genre_columns):
+    # --- MODIFICATION FOR BASELINE PR ---
+    # The function signature and logic have been updated to reflect that
+    # 'releaseYear' and 'imdbNumVotes' are no longer used as features.
+    
+    # Create a dataframe with the correct genre columns for the model
+    # Initialize a row of zeros
+    input_array = np.zeros(len(genre_columns))
+    
+    # Create a pandas Series to easily map genres to columns
+    input_series = pd.Series(input_array, index=genre_columns)
+    
+    # Set the value to 1 for each genre present in the new show
+    for genre in genres_list:
+        if genre in input_series.index:
+            input_series[genre] = 1
+            
+    # Convert the Series to a DataFrame for prediction, ensuring column order matches the model
+    input_features = pd.DataFrame([input_series.values], columns=genre_columns)
+    # --- END MODIFICATION ---
+    
+    # Predict
+    prediction = model.predict(input_features)
+    probability = model.predict_proba(input_features)[0][1] # Probability of class '1' (Popular)
+    
+    return 'Popular' if prediction[0] == 1 else 'Not Popular', probability
+
+# Main execution
+if __name__ == '__main__':
+    # Load and preprocess data
+    df = load_data()
+    
+    if df is not None:
+        X, y, genre_columns = preprocess_data(df)
+        
+        # Train the model
+        model = train_model(X, y)
+        
+        # --- MODIFICATION FOR BASELINE PR ---
+        # Example prediction no longer uses year or votes as input features.
+        # It now predicts based only on the information you would have for a future show (i.e., its genres).
+        new_show_genres = ['Drama', 'Romance']
+        result, prob = predict_popularity(model, new_show_genres, genre_columns)
+        
+        print("\n" + "="*40)
+        print("Example Prediction for a Future Show")
+        print("="*40)
+        print(f"Predicting for genres: {new_show_genres}")
+        print(f"Predicted Popularity: {result}")
+        print(f"Probability of being popular: {prob:.2f}")
+        print("="*40)
+        # --- END MODIFICATION ---
