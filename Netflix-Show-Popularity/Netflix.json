@@ -114,4 +114,122 @@ if __name__ == '__main__':
         print(f"Predicted Popularity: {result}")
         print(f"Probability of being popular: {prob:.2f}")
         print("="*40)
+
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.metrics import accuracy_score, classification_report
+import warnings
+import matplotlib.pyplot as plt  # <-- ADD THIS
+import seaborn as sns          # <-- ADD THIS
+warnings.filterwarnings('ignore')
+
+
+def analyze_and_visualize_genres(df):
+    """
+    Performs exploratory data analysis on genres to find relationships with ratings.
+    Generates and displays three visualizations.
+    """
+    print("\n" + "="*50)
+    print("Exploratory Data Analysis: Genre Insights")
+    print("="*50)
+    
+    # --- Data Preparation for Analysis ---
+    
+    # Ensure 'is_popular' column exists (it's created in preprocess_data, but good to have it here too for standalone analysis)
+    if 'is_popular' not in df.columns:
+        median_rating = df['imdbAverageRating'].median()
+        df['is_popular'] = (df['imdbAverageRating'] > median_rating).astype(int)
+
+    # The 'genres' column is a list of strings. We need to 'explode' it so each genre gets its own row.
+    # This is the key step to allow grouping by individual genres.
+    genres_exploded_df = df.explode('genres')
+
+    # Remove any empty genre entries that might have resulted from the split/explode
+    genres_exploded_df = genres_exploded_df[genres_exploded_df['genres'] != '']
+
+    # Set plot style
+    sns.set_theme(style="whitegrid")
+
+    # --- Visualization 1: Average IMDb Rating by Genre ---
+    
+    plt.figure(figsize=(12, 8))
+    avg_rating_by_genre = genres_exploded_df.groupby('genres')['imdbAverageRating'].mean().sort_values(ascending=False)
+    
+    sns.barplot(x=avg_rating_by_genre.values, y=avg_rating_by_genre.index, palette="viridis")
+    plt.title('Average IMDb Rating by Genre', fontsize=16)
+    plt.xlabel('Average IMDb Rating', fontsize=12)
+    plt.ylabel('Genre', fontsize=12)
+    print("\nDisplaying Plot 1: Average IMDb Rating by Genre...")
+    plt.tight_layout()
+    plt.show()
+
+    # --- Visualization 2: Popularity Rate by Genre ---
+    # We calculate the mean of 'is_popular' (which is 0 or 1).
+    # This gives us the percentage of movies in that genre that are 'Popular'.
+    
+    plt.figure(figsize=(12, 8))
+    popularity_rate_by_genre = genres_exploded_df.groupby('genres')['is_popular'].mean().sort_values(ascending=False)
+    
+    sns.barplot(x=popularity_rate_by_genre.values, y=popularity_rate_by_genre.index, palette="plasma")
+    plt.title('Popularity Rate (%) by Genre', fontsize=16)
+    plt.xlabel('Proportion of Movies Classified as "Popular"', fontsize=12)
+    plt.ylabel('Genre', fontsize=12)
+    print("\nDisplaying Plot 2: Popularity Rate by Genre...")
+    plt.tight_layout()
+    plt.show()
+
+    # --- Visualization 3: Number of Movies per Genre ---
+    # This provides important context to the other two plots.
+    
+    plt.figure(figsize=(12, 8))
+    movie_count_by_genre = genres_exploded_df['genres'].value_counts()
+    
+    sns.barplot(x=movie_count_by_genre.values, y=movie_count_by_genre.index, palette="magma")
+    plt.title('Total Number of Movies per Genre', fontsize=16)
+    plt.xlabel('Number of Movies', fontsize=12)
+    plt.ylabel('Genre', fontsize=12)
+    print("\nDisplaying Plot 3: Movie Count by Genre...")
+    plt.tight_layout()
+    plt.show()
+
+    print("\n" + "="*50)
+    print("End of Genre Analysis")
+    print("="*50 + "\n")
+
+# Main execution
+if __name__ == '__main__':
+    # Load data
+    df = load_data()
+    
+    if df is not None:
+        # --- MODIFICATION: ADD ANALYSIS STEP ---
+        # First, we need to process the genres column from a string to a list
+        df_for_analysis = df.copy()
+        df_for_analysis = df_for_analysis.dropna(subset=['genres', 'imdbAverageRating'])
+        df_for_analysis['genres'] = df_for_analysis['genres'].apply(lambda x: x.split(', ') if isinstance(x, str) else [])
+        
+        # Call the analysis function
+        analyze_and_visualize_genres(df_for_analysis)
         # --- END MODIFICATION ---
+
+        # Preprocess data for the model
+        X, y, genre_columns = preprocess_data(df)
+        
+        # Train the model
+        model = train_model(X, y)
+        
+        # Example prediction
+        new_show_genres = ['Drama', 'Romance']
+        result, prob = predict_popularity(model, new_show_genres, genre_columns)
+        
+        print("\n" + "="*40)
+        print("Example Prediction for a Future Show")
+        print("="*40)
+        print(f"Predicting for genres: {new_show_genres}")
+        print(f"Predicted Popularity: {result}")
+        print(f"Probability of being popular: {prob:.2f})")
+        print("="*40)
