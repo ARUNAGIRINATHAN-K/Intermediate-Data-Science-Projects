@@ -11,6 +11,7 @@ This repository contains a collection of simple yet insightful **Data Science pr
 | [🚌 Transport Delay Analyzer](./Public-Transport-Delay) | Explore and visualize delay patterns in public transport | Time Series, Correlation |
 | [🎥 Anime Recommendation System](./anime-recommender) | Recommend anime based on user preferences | Recommender Systems, Cosine Similarity |
 | [🛒 Retail Demand Forecasting](./Retail-Demand-Forecasting) | Forecast weekly inventory demand in a retail store | Regression, XGBoost |
+| [🩸 Blood Transfusion Dataset](./Blood-Donation-Prediction) | Understand the donor behavior | EDA, Data Visualization & Interpretation |
 
 ## 📈 Tools Used
 - Python (Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn)
